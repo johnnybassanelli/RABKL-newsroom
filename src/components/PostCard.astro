@@ -1,0 +1,22 @@
+
+---
+const { post } = Astro.props;
+const fm = post.frontmatter || {};
+const url = post.url ?? post.pathname ?? '#';
+const primaryTag = (fm.tags && fm.tags[0] || '').toLowerCase();
+const pillColor = {
+  'trade': 'background:#B22234',
+  'signing': 'background:#0B1D3A',
+  'gm': 'background:#8B5CF6',
+  'roundup': 'background:#AA6C39',
+  'power': 'background:#0C6E3D',
+}[primaryTag] || 'background:#0B1D3A';
+---
+<div class="postcard">
+  {fm.hero_image || fm.thumbnail ? <img src={fm.hero_image || fm.thumbnail} alt={fm.title} /> : ''}
+  <div class="meta">
+    {primaryTag ? <div class="tag" style={pillColor}>{primaryTag.toUpperCase()}</div> : ''}
+    <a class="title" href={url}>{fm.title}</a>
+    <div class="byline">{new Date(fm.date).toLocaleDateString()}</div>
+  </div>
+</div>

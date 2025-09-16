@@ -1,0 +1,15 @@
+
+---
+import Base from '../layouts/Base.astro';
+const modules = import.meta.glob('./recap/**/*.md', { eager: true });
+const posts = Object.values(modules).map(m => ({...m, frontmatter: m.frontmatter, url: m.url}))
+  .sort((a,b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
+---
+<Base title="RABKL Monthly Recaps">
+  <h1>Monthly Recaps</h1>
+  {posts.length === 0 ? <p class="muted">No recaps yet.</p> : (
+    <ul>
+      {posts.map(p => <li><a href={p.url}>{new Date(p.frontmatter.date).toLocaleDateString()} — {p.frontmatter.title}</a></li>)}
+    </ul>
+  )}
+</Base>

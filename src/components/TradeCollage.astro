@@ -1,0 +1,9 @@
+
+---
+const { left, right, caption = '' } = Astro.props;
+---
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;border:6px solid #eadfb2;border-radius:12px;overflow:hidden">
+  {left ? <img src={left} alt="Trade asset A" style="width:100%;display:block" /> : ''}
+  {right ? <img src={right} alt="Trade asset B" style="width:100%;display:block" /> : ''}
+</div>
+{caption ? <div style="text-align:center;font-size:12px;color:#555;margin-top:6px">{caption}</div> : ''}

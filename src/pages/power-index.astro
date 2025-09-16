@@ -1,0 +1,15 @@
+
+---
+import Base from '../layouts/Base.astro';
+const modules = import.meta.glob('./power-index/**/*.md', { eager: true });
+const posts = Object.values(modules).map(m => ({...m, frontmatter: m.frontmatter, url: m.url}))
+  .sort((a,b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
+---
+<Base title="RABKL Power Index">
+  <h1>Weekly Power Index</h1>
+  {posts.length === 0 ? <p class="muted">No Power Index posts yet.</p> : (
+    <ul>
+      {posts.map(p => <li><a href={p.url}>{new Date(p.frontmatter.date).toLocaleDateString()} — {p.frontmatter.title}</a></li>)}
+    </ul>
+  )}
+</Base>

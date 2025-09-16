@@ -1,0 +1,40 @@
+
+---
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import TradeCollage from '../components/TradeCollage.astro';
+
+const postModules = import.meta.glob('./posts/**/*.md', { eager: true });
+const posts = Object.values(postModules)
+  .map((m) => ({...m, frontmatter: m.frontmatter, url: m.url }))
+  .sort((a,b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
+const hero = posts[0];
+---
+<Base>
+  <div class="grid">
+    <div>
+      {hero ? (
+        <section class="card hero">
+          {hero.frontmatter.collage_left || hero.frontmatter.collage_right ? (
+            <TradeCollage left={hero.frontmatter.collage_left} right={hero.frontmatter.collage_right} caption={hero.frontmatter.title} />
+          ) : (hero.frontmatter.hero_image || hero.frontmatter.thumbnail) ? (
+            <img src={hero.frontmatter.hero_image || hero.frontmatter.thumbnail} alt={hero.frontmatter.title} />
+          ) : ''}
+          {hero.frontmatter.tags?.[0] ? <div class="pill" style="margin-top:10px;">{hero.frontmatter.tags[0].toUpperCase()}</div> : ''}
+          <h1><a class="title" href={hero.url}>{hero.frontmatter.title}</a></h1>
+        </section>
+      ) : ''}
+      <div class="divider"></div>
+      <section class="postlist">
+        {posts.slice(1,7).map((p) => <PostCard post={p} />)}
+      </section>
+    </div>
+    <aside class="card side">
+      <h2>Power Index</h2>
+      <p class="muted">Weekly ranking drops Monday 3:00am PT.</p>
+      <div class="divider"></div>
+      <h2>About</h2>
+      <p>Automated RABKL wire: trades, signings, GM moves, weekly &amp; monthly recaps.</p>
+    </aside>
+  </div>
+</Base>

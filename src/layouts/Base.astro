@@ -1,0 +1,45 @@
+
+---
+const {
+  title = 'RABKL Newsroom',
+  description = 'Fantasy hoops wire service for the RABKL',
+  theme = {
+    background: '#FDF6E3', secondary: '#FAF3DD', primary: '#0B1D3A', accent_red: '#B22234', accent_gold: '#F2B300',
+  }
+} = Astro.props;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <style>
+      :root{ --bg:{theme.background}; --bg2:{theme.secondary}; --primary:{theme.primary}; --red:{theme.accent_red}; --gold:{theme.accent_gold}; --text:#1E1E1E;}
+      *{box-sizing:border-box} body{margin:0;font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;background:var(--bg);color:var(--text);}
+      .topbar{background:var(--primary);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 0 rgba(0,0,0,.12);}
+      .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.3px;text-transform:uppercase}
+      .brand img{height:30px;width:auto} nav a{color:#fff;text-decoration:none;margin-right:18px;font-weight:700;opacity:.92} nav a:hover{opacity:1}
+      .container{max-width:1120px;margin:24px auto;padding:0 20px} .grid{display:grid;grid-template-columns:2fr 1fr;gap:22px}
+      .pill{display:inline-block;background:var(--red);color:#fff;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.5px}
+      .card{background:#fffbe8;border:1px solid rgba(11,29,58,.12);border-left:4px solid var(--gold);padding:14px;border-radius:12px}
+      .divider{height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:16px 0}
+      .footer{margin-top:40px;background:#fff5d7;border-top:4px solid var(--primary);padding:22px;text-align:center;color:#333}
+      .hero img{width:100%;border:6px solid #eadfb2;border-radius:12px}
+      h1{margin:.2rem 0 0 0;font-size:2.2rem} h2{font-size:1.2rem;margin:.4rem 0;}
+      .postlist{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+      .postcard{background:var(--bg2);border:1px solid rgba(11,29,58,.18);border-radius:12px;overflow:hidden}
+      .postcard img{width:100%;display:block} .postcard .meta{padding:12px}
+      .postcard .tag{background:#0B1D3A;color:#fff;font-size:10px;font-weight:900;padding:4px 10px;border-radius:999px;display:inline-block;margin-bottom:8px;letter-spacing:.5px}
+      a.title{display:block;color:#0B1D3A;text-decoration:none;font-weight:900;line-height:1.2} a.title:hover{text-decoration:underline}
+      .byline{font-size:12px;color:#555;margin-top:6px} .muted{opacity:.75} .side{position:sticky; top:16px; align-self:start}
+      @media (max-width:900px){.grid{grid-template-columns:1fr} .postlist{grid-template-columns:1fr} .side{position:static}}
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="brand"><img src="/brand/logo.svg" alt="RABKL logo"/><div>RABKL <span class="muted">Newsroom</span></div></div>
+      <nav><a href="/">News</a><a href="/power-index">Power Index</a><a href="/recap">Recap</a></nav>
+    </div>
+    <div class="container"><slot /></div>
+    <div class="footer">© {new Date().getFullYear()} RABKL Newsroom — beige/navy/crimson/gold theme.</div>
+  </body>
+</html>
